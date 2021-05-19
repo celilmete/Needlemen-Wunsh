@@ -6,9 +6,10 @@ public class Genom {
     public static final double MATCH = 2;
 
     public static void main(String[] args) {
-        String x = "GCCAGG";
-        String y = "AGCACG";
+        String x = "CGGGTAGTTAACCCTACAGCATAGAGTCGCGAGATAAAGTGCAGGAGTCTTTCGCGGCAGATTCGTACCTCAACCACGTGCTACTTTCTGGCATCACGAATCTGCCGCATAGGTCCGTGAGTCCATATGA";
+        String y = "TGAAGATGTCATTCGGTATTCAAACCTCATGCATCATTGCCTTGAGTCGCTCCTGGAGCATAGTCCCTGAGTGCCATATGA";
         Node[][] table = fill_table(x,y);
+        printMatrix(table);
         backtrack(table, x, y);
 
     }
@@ -110,6 +111,23 @@ public class Genom {
     static class Node {
          double value;
          boolean up = false, left = false, cross = false;
+    }
+
+    public static void printMatrix(Node[][] table){
+        for (int i = 0; i <table.length ; i++) {
+            for (int j = 0; j <table[0].length ; j++) {
+                if(i==0){
+                    System.out.printf("%8d |",j);
+                    continue;
+                }
+                if(j==0){
+                    System.out.printf("%8d |",i);
+                    continue;
+                }
+                System.out.printf("%8.1f |",table[i][j].value);
+            }
+            System.out.println();
+        }
     }
 
 }
