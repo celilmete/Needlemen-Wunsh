@@ -116,6 +116,7 @@ public class Genom {
     public static void printMatrix(Node[][] table){
         for (int i = 0; i <table.length ; i++) {
             for (int j = 0; j <table[0].length ; j++) {
+                /*
                 if(i==0){
                     System.out.printf("%8d |",j);
                     continue;
@@ -123,7 +124,7 @@ public class Genom {
                 if(j==0){
                     System.out.printf("%8d |",i);
                     continue;
-                }
+                }*/
                 System.out.printf("%8.1f |",table[i][j].value);
             }
             System.out.println();
