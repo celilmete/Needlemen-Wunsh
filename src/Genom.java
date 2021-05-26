@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Genom {
     // values for match, mismatch, gap open, and gap extend
     public static final double GAP_OPEN = -1;
@@ -6,11 +12,37 @@ public class Genom {
     public static final double MATCH = 2;
 
     public static void main(String[] args) {
-        String x = "CGGGTAGTTAACCCTACAGCATAGAGTCGCGAGATAAAGTGCAGGAGTCTTTCGCGGCAGATTCGTACCTCAACCACGTGCTACTTTCTGGCATCACGAATCTGCCGCATAGGTCCGTGAGTCCATATGA";
-        String y = "TGAAGATGTCATTCGGTATTCAAACCTCATGCATCATTGCCTTGAGTCGCTCCTGGAGCATAGTCCCTGAGTGCCATATGA";
-        Node[][] table = fill_table(x,y);
-        printMatrix(table);
-        backtrack(table, x, y);
+
+        String inputFiles[] = new String[]{"test1.seq", "test2.seq", "test3.seq", "test4.seq", "test5.seq"};
+        int j;
+        String x = null,y = null;
+        for (int i = 0; i <5 ; i++) {
+            j=1;
+            try {
+                File myObj = new File(inputFiles[i]);
+
+                Scanner myReader = new Scanner(myObj);
+
+                System.out.println("\n\n"+inputFiles[i]);
+                while (myReader.hasNextLine()) {
+                    if(j==1){
+                        x = myReader.nextLine();
+                    }else if(j==2){
+                        y = myReader.nextLine();
+                    }
+                    j++;
+                }
+                myReader.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+            Node[][] table = fill_table(x,y);
+            //printMatrix(table);
+            backtrack(table, x, y);
+        }
+
+
 
     }
 
@@ -116,15 +148,6 @@ public class Genom {
     public static void printMatrix(Node[][] table){
         for (int i = 0; i <table.length ; i++) {
             for (int j = 0; j <table[0].length ; j++) {
-                /*
-                if(i==0){
-                    System.out.printf("%8d |",j);
-                    continue;
-                }
-                if(j==0){
-                    System.out.printf("%8d |",i);
-                    continue;
-                }*/
                 System.out.printf("%8.1f |",table[i][j].value);
             }
             System.out.println();
